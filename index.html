@@ -1,450 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Evolution Series of Gaming</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-bg: #0C0C12;
-            --secondary-bg: #14141E;
-            --accent-blue: #4285F4;
-            --text-light: #E0E0E0;
-            --text-muted: #888899;
-            --border-color: #3C3C4F;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Techfest Theme - Flux for Future</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    /* Floating background shapes */
+    .floating-shape {
+      position: absolute;
+      opacity: 0.3;
+      animation: floatShape 10s infinite linear;
+    }
+    @keyframes floatShape {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-40px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
 
-        body, html {
-            height: 100%;
-            width: 100%;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-light);
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* --- Parallax Background --- */
-            background-image: url('https://cdn.pixabay.com/photo/2023/01/05/18/29/ai-generated-7699560_960_720.jpg'); /* New image URL */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
+    header {
+      padding: 60px 20px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.3); /* Subtle overlay */
-            z-index: -1;
-        }
+    h1 {
+      font-size: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #00f260, #0575e6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s infinite alternate;
+    }
 
-        /* --- Animations --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00f260; }
+      to { text-shadow: 0 0 25px #0575e6; }
+    }
 
-        @keyframes pulseShadow {
-            0% { box-shadow: 0 0 5px var(--accent-blue); }
-            50% { box-shadow: 0 0 15px var(--accent-blue); }
-            100% { box-shadow: 0 0 5px var(--accent-blue); }
-        }
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-align: left;
+      position: relative;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease-out;
+    }
 
-        /* --- Main Container (Fullscreen) --- */
-        .container {
-            width: 100vw;
-            height: 100vh;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-            z-index: 1;
-            background-color: transparent;
-        }
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        .container.active {
-            display: flex;
-            opacity: 1;
-        }
+    section h2 {
+      color: #00f0ff;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px #00f0ff;
+    }
 
-        /* --- Front Page Styles --- */
-        #frontpage {
-            background-color: rgba(20, 20, 30, 0.8);
-            border-radius: 8px;
-            padding: 40px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-        }
+    .icon {
+      width: 40px;
+      height: 40px;
+      vertical-align: middle;
+      margin-right: 8px;
+      animation: float 3s infinite ease-in-out;
+    }
 
-        .title-section h1 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 6vw;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-light);
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            margin-bottom: 10px;
-        }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
+    }
 
-        .subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.5vw;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .creator-info {
-            font-size: 1vw;
-            color: var(--text-muted);
-            position: absolute;
-            bottom: 30px;
-            width: 100%;
-            text-align: center;
-        }
-
-        /* --- Buttons --- */
-        .btn {
-            padding: 1.5vw 4vw;
-            background-color: var(--accent-blue);
-            border: none;
-            color: var(--primary-bg);
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2vw;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 40px;
-            border-radius: 4px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            animation: pulseShadow 2s infinite;
-        }
-
-        /* --- Carousel Section --- */
-        #carousel {
-            background-color: rgba(20, 20, 30, 0.8);
-            justify-content: space-between;
-            position: relative;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .carousel-content {
-            width: 100%;
-            max-width: 1200px;
-            height: auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr;
-            gap: 40px;
-            align-items: center;
-            position: relative;
-        }
-
-        .slide {
-            display: none;
-            grid-column: 1 / -1;
-            grid-row: 1;
-            flex-direction: row;
-            align-items: center;
-            gap: 40px;
-            text-align: left;
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        .slide.active {
-            display: flex;
-        }
-
-        .slide-text {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .slide h2 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 3vw;
-            text-transform: uppercase;
-            color: var(--accent-blue);
-        }
-
-        .slide p {
-            font-size: 1.2vw;
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        .slide img {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            border-radius: 4px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .slide img:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        /* --- Back Button --- */
-        .back-btn {
-            position: absolute;
-            top: 30px;
-            left: 40px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            z-index: 10;
-        }
-
-        .back-btn svg {
-            fill: var(--text-muted);
-            width: 30px;
-            height: 30px;
-            transition: fill 0.3s ease;
-        }
-
-        .back-btn:hover svg {
-            fill: var(--accent-blue);
-            transform: scale(1.1);
-        }
-
-        /* --- Carousel Controls --- */
-        .carousel-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 25px;
-            position: absolute;
-            bottom: 30px;
-            width: 100%;
-        }
-
-        .nav-btn {
-            background: var(--border-color);
-            border: none;
-            color: var(--text-light);
-            padding: 10px;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-btn:hover {
-            background-color: var(--accent-blue);
-            color: var(--primary-bg);
-            transform: scale(1.1);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .dot-container {
-            display: flex;
-            gap: 12px;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            background: var(--border-color);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: var(--accent-blue);
-            transform: scale(1.2);
-            box-shadow: 0 0 5px var(--accent-blue);
-        }
-
-        /* --- Media Queries --- */
-        @media (max-width: 1200px) {
-            .carousel-content {
-                grid-template-columns: 1fr;
-                justify-items: center;
-                text-align: center;
-            }
-            .slide {
-                flex-direction: column;
-            }
-            .slide-text {
-                text-align: center;
-            }
-            .slide img {
-                order: -1;
-            }
-        }
-        @media (max-width: 768px) {
-            .container { padding: 20px; }
-            .title-section h1 { font-size: 9vw; }
-            .subtitle { font-size: 3vw; }
-            .creator-info { font-size: 2.5vw; bottom: 15px; }
-            .btn { font-size: 3vw; padding: 3vw 6vw; margin-top: 20px;}
-            .slide h2 { font-size: 5vw; }
-            .slide p { font-size: 2.5vw; }
-            .back-btn { top: 15px; left: 15px; }
-            .back-btn svg { width: 25px; height: 25px; }
-            .carousel-controls { flex-direction: column; gap: 15px; }
-            .nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
-        }
-    </style>
+    footer {
+      margin: 40px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-    <section class="container frontpage active" id="frontpage">
-        <div class="title-section">
-            <h1>Evolution Series<br />of Gaming</h1>
-            <div class="subtitle">A digital journey through time.</div>
-            <button class="btn" id="start-btn">Start</button>
-        </div>
-        <div class="creator-info">
-            Designed by <span>Pranay Ghavghave</span>
-        </div>
-    </section>
+  <!-- Floating background shapes -->
+  <svg class="floating-shape" style="top:10%; left:5%; width:60px; height:60px;" fill="#00f0ff" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"/>
+  </svg>
+  <svg class="floating-shape" style="top:70%; left:80%; width:50px; height:50px;" fill="#ff00f0" viewBox="0 0 24 24">
+    <polygon points="12,2 22,22 2,22"/>
+  </svg>
+  <svg class="floating-shape" style="top:40%; left:50%; width:70px; height:70px;" fill="#00ffcc" viewBox="0 0 24 24">
+    <rect width="20" height="20" x="2" y="2" rx="4"/>
+  </svg>
 
-    <section class="container carousel" id="carousel">
-        <button class="back-btn" id="back-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 11H6.414l5.293-5.293-1.414-1.414L2.586 12l7.707 7.707 1.414-1.414L6.414 13H21z"/></svg>
-        </button>
-        <div class="carousel-content">
-            <div class="slide active">
-                <div class="slide-text">
-                    <h2>Genesis: The Classics</h2>
-                    <p>The pixel-powered genesis defined the fundamental principles of home gaming. Iconic consoles like the Atari 2600 laid the groundwork for an industry that would change the world forever.</p>
-                </div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Atari-2600-Console.jpg/1200px-Atari-2600-Console.jpg" alt="Atari 2600 Console">
-            </div>
-            <div class="slide">
-                <div class="slide-text">
-                    <h2>The Golden Age</h2>
-                    <p>An era of epic console wars between Nintendo and Sega. The Super Nintendo and Sega Genesis introduced a new level of graphical fidelity and gameplay complexity, captivating a generation of players.</p>
-                </div>
-                <img src="https://i.ytimg.com/vi/9SLrxNQT-mk/maxresdefault.jpg" alt="Super Nintendo Entertainment System">
-            </div>
-            <div class="slide">
-                <div class="slide-text">
-                    <h2>The 3D Revolution</h2>
-                    <p>Gaming went three-dimensional, a paradigm shift that forever changed the landscape. Consoles like the PlayStation and Nintendo 64 delivered immersive worlds, cinematic storytelling, and introduced genres like open-world exploration.</p>
-                </div>
-                <img src="https://gametrog.com/wp-content/uploads/2020/08/playstation-1-PS1-psone-revision-compare.jpg" alt="PlayStation 1 Console">
-            </div>
-            <div class="slide">
-                <div class="slide-text">
-                    <h2>The Modern Era</h2>
-                    <p>High-definition graphics, online multiplayer, and cloud gaming define today's experience. With consoles like the *PS5* and Xbox Series X, we are at the forefront of virtual reality and photorealistic gaming.</p>
-                </div>
-                <img src="https://i5.walmartimages.com/seo/Sony-PlayStation-5-Gaming-Console_02021359-c4bb-410e-940a-12930acbfd57.4d050069b07b687682d48144eb9d9032.jpeg" alt="PlayStation 5 Console">
-            </div>
-        </div>
+  <header>
+    <!-- Futuristic SVG Icon -->
+    <svg class="icon" fill="#00f0ff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 2L15.09 8.26L22 9.27L17 
+               14.14L18.18 21.02L12 17.77L5.82 
+               21.02L7 14.14L2 9.27L8.91 
+               8.26L12 2Z"/>
+    </svg>
+    <h1>Flux for Future</h1>
+    
+  </header>
 
-        <div class="carousel-controls">
-            <button class="nav-btn prev" id="prev-btn">&#x2190;</button>
-            <div class="dot-container">
-                <div class="dot active" data-slide="0"></div>
-                <div class="dot" data-slide="1"></div>
-                <div class="dot" data-slide="2"></div>
-                <div class="dot" data-slide="3"></div>
-            </div>
-            <button class="nav-btn next" id="next-btn">&#x2192;</button>
-        </div>
-    </section>
+  <section>
+    <h2>Short Intro: What is Flux for Future?</h2>
+    <p>“Flux for Future” is about embracing the rapid, ever-changing wave of technology. It represents constant transformation — AI, robotics, sustainability, and space exploration — all coming together to shape tomorrow’s world.</p>
+  </section>
 
-    <script>
-        const frontpage = document.getElementById('frontpage');
-        const carousel = document.getElementById('carousel');
-        const startBtn = document.getElementById('start-btn');
-        const backBtn = document.getElementById('back-btn');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        let currentSlide = 0;
+  <section>
+    <h2>1. Theme Name/Title</h2>
+    <p><strong>Flux for Future</strong></p>
+  </section>
 
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-            });
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-            currentSlide = index;
+  <section>
+    <h2>2. Brief Explanation</h2>
+    <p>“Flux for Future” symbolizes the constant evolution of technology and imagination. 
+       The future isn’t fixed but shaped by dynamic changes in AI, sustainability, robotics, 
+       space exploration, and innovation.</p>
+  </section>
+
+  <section>
+    <h2>3. Relation to Technology & Future</h2>
+    <p>Each breakthrough in tech — from quantum computing to renewable energy — pushes 
+       us forward. “Flux” reflects this momentum, showing how innovation continuously 
+       reshapes our world.</p>
+  </section>
+
+  <section>
+    <h2>4. Vibe & Narrative</h2>
+    <p>The theme carries a futuristic, glowing, and ever-shifting vibe, suggesting creativity 
+       and limitless potential. Its narrative: <em>“We don’t just enter the future, we shape it.”</em></p>
+  </section>
+
+  <section>
+    <h2>5. Visual & Conceptual Exploration</h2>
+    <ul>
+      <li>🎨 <strong>Design:</strong> Neon gradients, animated holographic shapes</li>
+      <li>🕶️ <strong>Installations:</strong> AR/VR interactive experiences</li>
+      <li>✨ <strong>Branding:</strong> Evolving digital logos & glowing circuits</li>
+      <li>📡 <strong>Talks & Exhibits:</strong> How today’s flux becomes tomorrow’s future</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© Techfest | Central Theme Proposal</p>
+  </footer>
+
+  <script>
+    // Scroll animation: reveal sections as they come into view
+    const sections = document.querySelectorAll("section");
+    const revealOnScroll = () => {
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          sec.classList.add("show");
         }
+      });
+    };
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll();
+  </script>
 
-        startBtn.addEventListener('click', () => {
-            frontpage.classList.remove('active');
-            carousel.classList.add('active');
-            showSlide(0);
-        });
-
-        backBtn.addEventListener('click', () => {
-            carousel.classList.remove('active');
-            frontpage.classList.add('active');
-        });
-
-        prevBtn.addEventListener('click', () => {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        });
-
-        nextBtn.addEventListener('click', () => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        });
-
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const slideIndex = parseInt(dot.getAttribute('data-slide'));
-                showSlide(slideIndex);
-            });
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (carousel.classList.contains('active')) {
-                if (e.key === 'ArrowLeft') {
-                    prevBtn.click();
-                } else if (e.key === 'ArrowRight') {
-                    nextBtn.click();
-                }
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            frontpage.classList.add('active');
-        });
-    </script>
 </body>
 </html>
